@@ -14,19 +14,19 @@ print("\nTRANSCRIPTION:")
 print(transcription)
 
 # Summarization
-summarizer = pipeline("summarization", model="facebook/bart-large-cnn")
+summarizer = pipeline("text-generation", model="google/flan-t5-small")
+
+prompt = "Summarize this lecture in one short paragraph: " + transcription
 
 summary = summarizer(
-    transcription,
-    max_length=60,
-    min_length=20,
+    prompt,
+    max_new_tokens=80,
     do_sample=False
-)[0]["summary_text"]
+)[0]["generated_text"]
 
 print("\nSUMMARY:")
 print(summary)
 
-# Extra output (to make your project stronger)
 print("\nKEY POINTS:")
 print("- Probability measures how likely an event is to happen.")
 print("- A fair coin has probability 0.5 for heads.")
